@@ -91,3 +91,17 @@ jobs:
         run: dotnet restore "V4/DSX_V4.sln"
       - name: Build
         run: dotnet build "V4/DSX_V4.sln" --configuration Release --no-restore
+
+  build-v4-gui:
+    name: Build DSX V4 GUI
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore "V4/GUI/GUI.csproj"
+      - name: Build
+        run: dotnet build "V4/GUI/GUI.csproj" --configuration Release --no-restore

@@ -1,0 +1,288 @@
+<Window x:Class="DSX.V4.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DualSenseX V4 Controller" Height="720" Width="520"
+        Background="#1a1a2e" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="DarkButton" TargetType="Button">
+            <Setter Property="Background" Value="#16213e"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#0f3460"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource DarkButton}">
+            <Setter Property="Background" Value="#e94560"/>
+            <Setter Property="BorderBrush" Value="#e94560"/>
+        </Style>
+
+        <Style x:Key="SectionLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#e94560"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,12,0,4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#16213e" CornerRadius="8" Padding="16,12" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="DualSenseX V4" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock x:Name="StatusText" Text="Disconnected" Foreground="#aaa" FontSize="12" Margin="0,2,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse x:Name="ConnectionDot" Width="10" Height="10" Fill="#555" Margin="0,0,6,0"/>
+                    <TextBlock x:Name="ConnectionText" Text="Offline" Foreground="#aaa" FontSize="12" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Connection -->
+        <Border Grid.Row="1" Background="#16213e" CornerRadius="8" Padding="16,12" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="DSX Server" Foreground="#ccc" FontSize="13" VerticalAlignment="Center"/>
+                <Button Grid.Column="1" x:Name="BtnConnect" Content="Connect" Style="{StaticResource AccentButton}" Click="BtnConnect_Click"/>
+                <Button Grid.Column="2" x:Name="BtnRefresh" Content="Refresh Devices" Style="{StaticResource DarkButton}" Click="BtnRefresh_Click" IsEnabled="False"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,0,0,12">
+            <StackPanel>
+
+                <!-- Device Info -->
+                <TextBlock Text="DEVICE INFO" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Grid x:Name="DeviceInfoPanel">
+                        <TextBlock Text="No controller connected" Foreground="#666" FontSize="12" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Battery -->
+                <TextBlock Text="BATTERY" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar x:Name="BatteryBar" Grid.Column="0" Height="20" Minimum="0" Maximum="100"
+                                     Background="#333" Foreground="#4caf50" BorderThickness="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="BatteryText" Grid.Column="1" Text="--%" Foreground="#4caf50" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- RGB Color -->
+                <TextBlock Text="RGB COLOR" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="R:" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="24"/>
+                            <Slider x:Name="SliderR" Grid.Column="1" Minimum="0" Maximum="255" Value="255" VerticalAlignment="Center"
+                                    ValueChanged="SliderRGB_ValueChanged" Foreground="#e94560"/>
+                            <TextBlock x:Name="ValR" Grid.Column="2" Text="255" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="30" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="G:" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="24"/>
+                            <Slider x:Name="SliderG" Grid.Column="1" Minimum="0" Maximum="255" Value="0" VerticalAlignment="Center"
+                                    ValueChanged="SliderRGB_ValueChanged" Foreground="#4caf50"/>
+                            <TextBlock x:Name="ValG" Grid.Column="2" Text="0" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="30" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="B:" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="24"/>
+                            <Slider x:Name="SliderB" Grid.Column="1" Minimum="0" Maximum="255" Value="0" VerticalAlignment="Center"
+                                    ValueChanged="SliderRGB_ValueChanged" Foreground="#2196f3"/>
+                            <TextBlock x:Name="ValB" Grid.Column="2" Text="0" Foreground="#aaa" FontSize="12" VerticalAlignment="Center" Width="30" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle x:Name="ColorPreview" Grid.Column="0" Height="30" Fill="#ff0000" RadiusX="6" RadiusY="6" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Button Grid.Column="1" Content="Apply RGB" Style="{StaticResource AccentButton}" Click="BtnApplyRGB_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Adaptive Triggers -->
+                <TextBlock Text="ADAPTIVE TRIGGERS" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Left Trigger" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboLeftTrigger" Background="#0f3460" Foreground="White" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="Normal"/>
+                                <ComboBoxItem Content="VerySoft"/>
+                                <ComboBoxItem Content="Soft"/>
+                                <ComboBoxItem Content="Hard"/>
+                                <ComboBoxItem Content="VeryHard"/>
+                                <ComboBoxItem Content="Hardest"/>
+                                <ComboBoxItem Content="Rigid"/>
+                                <ComboBoxItem Content="Bow"/>
+                                <ComboBoxItem Content="Galloping"/>
+                                <ComboBoxItem Content="SemiAutoGun"/>
+                                <ComboBoxItem Content="AutoGun"/>
+                                <ComboBoxItem Content="Machine"/>
+                                <ComboBoxItem Content="Resistance"/>
+                                <ComboBoxItem Content="VibrateTrigger"/>
+                                <ComboBoxItem Content="VibratePulse"/>
+                            </ComboBox>
+                            <Button Content="Apply Left" Style="{StaticResource DarkButton}" Click="BtnApplyTriggerLeft_Click"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Right Trigger" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboRightTrigger" Background="#0f3460" Foreground="White" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="Normal"/>
+                                <ComboBoxItem Content="VerySoft"/>
+                                <ComboBoxItem Content="Soft"/>
+                                <ComboBoxItem Content="Hard"/>
+                                <ComboBoxItem Content="VeryHard"/>
+                                <ComboBoxItem Content="Hardest"/>
+                                <ComboBoxItem Content="Rigid"/>
+                                <ComboBoxItem Content="Bow"/>
+                                <ComboBoxItem Content="Galloping"/>
+                                <ComboBoxItem Content="SemiAutoGun"/>
+                                <ComboBoxItem Content="AutoGun"/>
+                                <ComboBoxItem Content="Machine"/>
+                                <ComboBoxItem Content="Resistance"/>
+                                <ComboBoxItem Content="VibrateTrigger"/>
+                                <ComboBoxItem Content="VibratePulse"/>
+                            </ComboBox>
+                            <Button Content="Apply Right" Style="{StaticResource DarkButton}" Click="BtnApplyTriggerRight_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- LEDs -->
+                <TextBlock Text="LED CONTROL" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Player LED" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboPlayerLED" Background="#0f3460" Foreground="White" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="LED 1"/>
+                                <ComboBoxItem Content="LED 2"/>
+                                <ComboBoxItem Content="LED 3"/>
+                                <ComboBoxItem Content="LED 4"/>
+                                <ComboBoxItem Content="LED 5"/>
+                                <ComboBoxItem Content="All Off"/>
+                            </ComboBox>
+                            <Button Content="Apply Player LED" Style="{StaticResource DarkButton}" Click="BtnApplyPlayerLED_Click"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Mic LED" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <ComboBox x:Name="ComboMicLED" Background="#0f3460" Foreground="White" SelectedIndex="0" Margin="0,0,0,6">
+                                <ComboBoxItem Content="On"/>
+                                <ComboBoxItem Content="Pulse"/>
+                                <ComboBoxItem Content="Off"/>
+                            </ComboBox>
+                            <Button Content="Apply Mic LED" Style="{StaticResource DarkButton}" Click="BtnApplyMicLED_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Trigger Threshold -->
+                <TextBlock Text="TRIGGER THRESHOLD" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Left Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <Slider x:Name="SliderLeftThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#e94560"/>
+                            <TextBlock x:Name="ValLeftThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Right Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                            <Slider x:Name="SliderRightThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#2196f3"/>
+                            <TextBlock x:Name="ValRightThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <Button Content="Apply Thresholds" Style="{StaticResource DarkButton}" Click="BtnApplyThreshold_Click" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                </Border>
+
+                <!-- Reset -->
+                <TextBlock Text="MISC" Style="{StaticResource SectionLabel}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
+                    <Button Content="Reset to User Settings" Style="{StaticResource AccentButton}" Click="BtnReset_Click" HorizontalAlignment="Center"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Log -->
+        <Border Grid.Row="3" Background="#16213e" CornerRadius="8" Padding="10,8" MaxHeight="120">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="LOG" Style="{StaticResource SectionLabel}" Margin="0,0,0,4"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="LogText" Text="" Foreground="#888" FontSize="11" FontFamily="Consolas" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
