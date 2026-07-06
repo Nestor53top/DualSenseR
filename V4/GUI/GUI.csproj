@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RootNamespace>DSX.V4.GUI</RootNamespace>
     <AssemblyName>DSX_V4_GUI</AssemblyName>
   </PropertyGroup>
