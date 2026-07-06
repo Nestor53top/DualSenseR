@@ -243,23 +243,23 @@
                 <!-- Trigger Threshold -->
                 <TextBlock Text="TRIGGER THRESHOLD" Style="{StaticResource SectionLabel}"/>
                 <Border Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,8">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                            <TextBlock Text="Left Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
-                            <Slider x:Name="SliderLeftThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#e94560"/>
-                            <TextBlock x:Name="ValLeftThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                            <TextBlock Text="Right Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
-                            <Slider x:Name="SliderRightThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#2196f3"/>
-                            <TextBlock x:Name="ValRightThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
                     <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                <TextBlock Text="Left Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                                <Slider x:Name="SliderLeftThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#e94560"/>
+                                <TextBlock x:Name="ValLeftThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                <TextBlock Text="Right Threshold" Foreground="#aaa" FontSize="12" Margin="0,0,0,4"/>
+                                <Slider x:Name="SliderRightThreshold" Minimum="0" Maximum="255" Value="0" Foreground="#2196f3"/>
+                                <TextBlock x:Name="ValRightThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
                         <Button Content="Apply Thresholds" Style="{StaticResource DarkButton}" Click="BtnApplyThreshold_Click" HorizontalAlignment="Center" Margin="0,8,0,0"/>
                     </StackPanel>
                 </Border>
