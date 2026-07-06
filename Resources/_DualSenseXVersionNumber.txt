@@ -1,0 +1,26 @@
+(1.5.0)
+
+---------------------- IMPORTANT NOTICE ---------------------
+
+BLUETOOTH AUDIO and HAPTIC FEEDBACK IS NOW SUPPORTED 
+WITH DSX ON STEAM!
+
+Thank you for using DualSenseX! To continue improving and 
+providing the best possible experience, we’ve transitioned 
+to Steam as DSX.
+
+The GitHub version (v1.4.9) is no longer supported or updated. 
+Moving to Steam allows us to deliver frequent updates, 
+faster fixes, and ongoing improvements—all made possible by 
+your support.
+
+By upgrading to the Steam version, you’re helping us keep 
+DSX alive, growing, and evolving. Your support ensures 
+that we can continue to build the app you love.
+
+------------ Search "DSX" on Steam to upgrade now! ----------
+
+
+
+
+

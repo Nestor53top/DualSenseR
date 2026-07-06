@@ -1,0 +1,17 @@
+﻿CreateFile
+DeviceIoControl
+GetVolumePathNamesForVolumeNameW
+FindFirstVolume
+FindNextVolume
+QueryDosDevice
+METHOD_BUFFERED 
+METHOD_IN_DIRECT
+METHOD_OUT_DIRECT
+METHOD_NEITHER
+FILE_ACCESS_RIGHTS
+FormatMessage
+FORMAT_MESSAGE_OPTIONS
+CM_Get_Device_Interface_List
+CM_Get_Device_Interface_List_Size
+CM_GET_DEVICE_INTERFACE_LIST_FLAGS
+WIN32_ERROR

@@ -1,0 +1,390 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#include ""afxres.rc""      // Standard components\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""   // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "#include ""HidHideClientETW.rc""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_DIALOG_APPLICATION  ICON                    "src\\Application.ico"
+
+IDI_ICON_BLACKLIST_LOCK_BLANK ICON                    "src\\LockBlank.ico"
+
+IDI_ICON_BLACKLIST_LOCK_OFF ICON                    "src\\LockOff.ico"
+
+IDI_ICON_BLACKLIST_LOCK_ON ICON                    "src\\LockOn.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_APPLICATION DIALOGEX 0, 0, 485, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTROLPARENT | WS_EX_APPWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "xxx",IDC_TAB_APPLICATION,"SysTabControl32",WS_TABSTOP,7,7,467,169
+END
+
+IDD_DIALOG_WHITELIST DIALOGEX 0, 0, 464, 152
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LISTBOX         IDC_LIST_WHITELIST,7,6,450,110,LBS_SORT | LBS_MULTIPLESEL | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP,WS_EX_TRANSPARENT
+    LTEXT           "xxx",IDC_STATIC_WHITELIST_GUIDANCE,112,125,237,24,0,WS_EX_TRANSPARENT
+    PUSHBUTTON      "xxx",IDC_BUTTON_WHITELIST_INSERT,405,118,24,14
+    PUSHBUTTON      "xxx",IDC_BUTTON_WHITELIST_DELETE,433,118,24,14
+    CONTROL         "xxx",IDC_CHECK_WHITELIST_INVERSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,122,102,8,WS_EX_TRANSPARENT
+END
+
+IDD_DIALOG_BLACKLIST DIALOGEX 0, 0, 465, 152
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    CONTROL         "xxx",IDC_TREE_BLACKLIST,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_DISABLEDRAGDROP | TVS_NOTOOLTIPS | TVS_CHECKBOXES | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,6,450,110,WS_EX_TRANSPARENT | WS_EX_CLIENTEDGE
+    CONTROL         "xxx",IDC_CHECK_BLACKLIST_FILTER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,122,102,8,WS_EX_TRANSPARENT
+    CONTROL         "xxx",IDC_CHECK_BLACKLIST_GAMING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,131,102,8,WS_EX_TRANSPARENT
+    CONTROL         "xxx",IDC_CHECK_BLACKLIST_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,140,102,8,WS_EX_TRANSPARENT
+    LTEXT           "xxx",IDC_STATIC_BLACKLIST_GUIDANCE,112,121,237,22,0,WS_EX_TRANSPARENT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_APPLICATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 478
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_DIALOG_WHITELIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 458
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 145
+    END
+
+    IDD_DIALOG_BLACKLIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 458
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 148
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG_APPLICATION AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_WHITELIST AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_BLACKLIST AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_STATIC_MESSAGEBOX_OK "&Ok"
+    IDS_STATIC_MESSAGEBOX_CANCEL "&Cancel"
+    IDS_STATIC_MESSAGEBOX_RETRY "&Retry"
+    IDS_STATIC_MESSAGEBOX_IGNORE "&Ignore"
+    IDS_STATIC_MESSAGEBOX_ABORT "&Abort"
+    IDS_STATIC_MESSAGEBOX_YES "&Yes"
+    IDS_STATIC_MESSAGEBOX_NO "&No"
+    IDS_DIALOG_APPLICATION  "HidHide configuration client"
+    IDS_DIALOG_FILE_OPEN    "Identify the application that will be allowed to look through the cloak"
+    IDS_STATIC_FILE_OPEN_FILTER 
+                            "Applications |*.exe; *.com; *.bin|Libraries |*.dll; *.ocx|All Files |*.*||"
+    IDS_TAB_APPLICATION_HEADER_0 "Applications"
+    IDS_TAB_APPLICATION_HEADER_1 "Devices"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STATIC_WHITELIST_GUIDANCE 
+                            "List here the applications HidHide should allow to look through the cloak. Any pre-selected application is not found at the registered location."
+    IDS_BUTTON_WHITELIST_INSERT "&+"
+    IDS_BUTTON_WHITELIST_DELETE "&-"
+    IDS_CHECK_BLACKLIST_FILTER "&Filter-out disconnected"
+    IDS_CHECK_BLACKLIST_GAMING "&Gaming devices only"
+    IDS_CHECK_BLACKLIST_ENABLE "&Enable device hiding"
+    IDS_STATIC_BLACKLIST_GUIDANCE 
+                            "Select one or more devices and press Enable to control the cloaking. RE-CONNECT the devices afterwards for changes to take effect."
+    IDS_CONTROL_DEVICE_NAME "\\\\.\\HidHide"
+    IDS_HID_ATTRIBUTE_DENIED "denied"
+    IDS_HID_ATTRIBUTE_ABSENT "absent"
+    IDS_STATIC_MESSAGEBOX_PRESENT 
+                            "The HidHide control device can't be reached. When HidHide is just installed be sure to REBOOT first else inspect the status of the Nefarius HidHide driver under System Devices in the Device Manager and ensure it is properly loaded and enabled. Once corrected press Retry. When the issue can't be resolved press Cancel and re-install the HidHide software."
+    IDS_STATIC_MESSAGEBOX_IN_USE 
+                            "The HidHide control device can't be accessed. Be sure to close the HidHide command line interface or any other application. When the issue can't be resolved after a REBOOT press Cancel and re-install the HidHide software."
+    IDS_STATIC_MESSAGEBOX_EXCEPTION 
+                            "Something unforeseen has happened which cannot be recovered from. Program execution has to be terminated. Sorry for the inconvenience."
+    IDS_CHECK_WHITELIST_INVERSE "&Inverse application cloak"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01             "Generic Desktop"
+    IDS_PAGE_02             "Simulation Controls"
+    IDS_PAGE_03             "VR Controls"
+    IDS_PAGE_04             "Sport Controls"
+    IDS_PAGE_05             "Game Controls"
+    IDS_PAGE_06             "Generic Device Controls"
+    IDS_PAGE_07             "Keyboard"
+    IDS_PAGE_08             "LED"
+    IDS_PAGE_09             "Button"
+    IDS_PAGE_0A             "Ordinal"
+    IDS_PAGE_0B             "Telephony Device"
+    IDS_PAGE_0C             "Consumer"
+    IDS_PAGE_0D             "Digitizer"
+    IDS_PABE_0E             "Haptic"
+    IDS_PAGE_0F             "PID"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_10             "Unicode"
+    IDS_PAGE_12             "Eye and Head Tracker"
+    IDS_PAGE_14             "Auxiliary Display"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_20             "Sensor"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_40             "Medical Instrument"
+    IDS_PAGE_41             "Braille Display"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_59             "Lighting And Illumination"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_8C             "Bar Code Scanner"
+    IDS_PAGE_8D             "Scale"
+    IDS_PAGE_8E             "Magnetic Stripe Reader"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_90             "Camera Control"
+    IDS_PAGE_91             "Arcade"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_01    "Pointer"
+    IDS_PAGE_01_USAGE_02    "Mouse"
+    IDS_PAGE_01_USAGE_04    "Joystick"
+    IDS_PAGE_01_USAGE_05    "Gamepad"
+    IDS_PAGE_01_USAGE_06    "Keyboard"
+    IDS_PAGE_01_USAGE_07    "Keypad"
+    IDS_PAGE_01_USAGE_08    "Multi-axis Controller"
+    IDS_PAGE_01_USAGE_09    "Tablet PC System Controls"
+    IDS_PAGE_01_USAGE_0D    "Portable Device Control"
+    IDS_PAGE_01_USAGE_0E    "System Multi-Axis Controller"
+    IDS_PAGE_01_USAGE_0F    "Spatial Controller"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_10    "Assistive Control"
+    IDS_PAGE_01_USAGE_11    "Device Dock"
+    IDS_PAGE_01_USAGE_12    "Dockable Device"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_30    "X"
+    IDS_PAGE_01_USAGE_31    "Y"
+    IDS_PAGE_01_USAGE_32    "Z"
+    IDS_PAGE_01_USAGE_33    "Rx"
+    IDS_PAGE_01_USAGE_34    "Ry"
+    IDS_PAGE_01_USAGE_35    "Rz"
+    IDS_PAGE_01_USAGE_36    "Slider"
+    IDS_PAGE_01_USAGE_37    "Dial"
+    IDS_PAGE_01_USAGE_38    "Wheel"
+    IDS_PAGE_01_USAGE_39    "Hat Switch"
+    IDS_PAGE_01_USAGE_3A    "Counted Buffer"
+    IDS_PAGE_01_USAGE_3B    "Byte Count"
+    IDS_PAGE_01_USAGE_3C    "Motion Wakeup"
+    IDS_PAGE_01_USAGE_3D    "Start"
+    IDS_PAGE_01_USAGE_3E    "Select"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_80    "System Control"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_96    "Thumbstick"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_01_USAGE_C0    "Sensor Zone"
+    IDS_PAGE_01_USAGE_C5    "Chassis Enclosure"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_0C_USAGE_01    "Consumer Control"
+    IDS_PAGE_0C_USAGE_02    "Numeric Key Pad"
+    IDS_PAGE_0C_USAGE_03    "Programmable Buttons"
+    IDS_PAGE_0C_USAGE_04    "Microphone"
+    IDS_PAGE_0C_USAGE_05    "Headphone"
+    IDS_PAGE_0C_USAGE_06    "Graphic Equalizer"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_0C_USAGE_36    "Function Buttons"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_0C_USAGE_80    "Selection"
+    IDS_PAGE_0C_USAGE_87    "Media Selection"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_0C_USAGE_BA    "Select Disc"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PAGE_0C_USAGE_F1    "Playback Speed"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#include "afxres.rc"      // Standard components
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"   // MFC ribbon and control bar resources
+#endif
+#endif
+#include "HidHideClientETW.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

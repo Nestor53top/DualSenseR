@@ -1,0 +1,79 @@
+name: Build All Projects
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-modsystem:
+    name: Build ModSystem (v3.1)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+      - name: Restore NuGet packages
+        run: nuget restore "ModSystem/DSX_ModSystem_Example.sln"
+      - name: Build ModSystem
+        run: msbuild "ModSystem/DSX_ModSystem_Example.sln" /p:Configuration=Release /p:Platform="Any CPU"
+
+  build-udp-v2:
+    name: Build UDP Example v2.0
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+      - name: Restore NuGet packages
+        run: nuget restore "UDP Example (C#) for v2.0/DSX_UDP_Example/DSX_UDP_Example.sln"
+      - name: Build UDP Example v2.0
+        run: msbuild "UDP Example (C#) for v2.0/DSX_UDP_Example/DSX_UDP_Example.sln" /p:Configuration=Release /p:Platform="Any CPU"
+
+  build-udp-example:
+    name: Build UDP Example (Client/Server/Shared)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '3.1.x'
+      - name: Restore
+        run: dotnet restore "UDPExample/UDPExample.sln"
+      - name: Build
+        run: dotnet build "UDPExample/UDPExample.sln" --configuration Release --no-restore
+
+  build-hidhide-api:
+    name: Build Nefarius.Drivers.HidHide
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore "Nefarius.Drivers.HidHide/Nefarius.Drivers.HidHide.sln"
+      - name: Build
+        run: dotnet build "Nefarius.Drivers.HidHide/Nefarius.Drivers.HidHide.sln" --configuration Release --no-restore
+
+  build-autobt:
+    name: Build AutoBT
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+      - name: Restore NuGet packages
+        run: nuget restore "AutoBT/Source/AutoBT.sln"
+      - name: Build AutoBT
+        run: msbuild "AutoBT/Source/AutoBT.sln" /p:Configuration=Release /p:Platform="Any CPU"
