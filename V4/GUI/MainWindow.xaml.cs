@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Newtonsoft.Json;
 using DSX.V4.Shared;
+using DSXTrigger = DSX.V4.Shared.Trigger;
+using DShared = DSX.V4.Shared.Triggers;
 
 namespace DSX.V4.GUI
 {
@@ -66,13 +68,11 @@ namespace DSX.V4.GUI
         private int FetchPortNumber()
         {
             const int defaultPort = 6969;
-
             try
             {
                 string appDataPath = System.IO.Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     "DSX", "DSX_UDP_PortNumber.txt");
-
                 if (System.IO.File.Exists(appDataPath))
                 {
                     string content = System.IO.File.ReadAllText(appDataPath).Trim();
@@ -81,7 +81,6 @@ namespace DSX.V4.GUI
                 }
             }
             catch { }
-
             try
             {
                 string tempPath = @"C:\Temp\DualSenseX\DualSenseX_PortNumber.txt";
@@ -93,17 +92,15 @@ namespace DSX.V4.GUI
                 }
             }
             catch { }
-
             return defaultPort;
         }
 
         private void SendPacket(Packet packet)
         {
             if (!isConnected) return;
-
             try
             {
-                var data = Encoding.ASCII.GetBytes(Triggers.PacketToJson(packet));
+                var data = Encoding.ASCII.GetBytes(DShared.PacketToJson(packet));
                 client.Send(data, data.Length, endPoint);
                 timeSent = DateTime.Now;
                 Log($"Packet sent ({packet.instructions.Length} instructions)");
@@ -121,9 +118,8 @@ namespace DSX.V4.GUI
                 byte[] bytes = client.Receive(ref endPoint);
                 if (bytes.Length > 0)
                 {
-                    var response = JsonConvert.DeserializeObject<ServerResponse>(
+                    return JsonConvert.DeserializeObject<ServerResponse>(
                         Encoding.ASCII.GetString(bytes));
-                    return response;
                 }
             }
             catch { }
@@ -133,7 +129,6 @@ namespace DSX.V4.GUI
         private void UpdateDeviceInfo(ServerResponse response)
         {
             if (response == null) return;
-
             TimeSpan elapsed = DateTime.Now - timeSent;
             StatusText.Text = $"Connected | {response.Status} | {elapsed.TotalMilliseconds:F0}ms";
 
@@ -178,7 +173,7 @@ namespace DSX.V4.GUI
             sp.Children.Add(new TextBlock
             {
                 Text = value,
-                Foreground = Colors.White,
+                Foreground = new SolidColorBrush(Colors.White),
                 FontSize = 12,
                 FontWeight = FontWeights.SemiBold
             });
@@ -198,8 +193,6 @@ namespace DSX.V4.GUI
             packet.instructions[count] = new Instruction { type = type, parameters = parameters };
         }
 
-        // === Event Handlers ===
-
         private void BtnConnect_Click(object sender, RoutedEventArgs e)
         {
             if (isConnected)
@@ -209,12 +202,11 @@ namespace DSX.V4.GUI
                 Log("Disconnected");
                 return;
             }
-
             try
             {
                 int port = FetchPortNumber();
                 client = new UdpClient();
-                endPoint = new IPEndPoint(Triggers.localhost, port);
+                endPoint = new IPEndPoint(DShared.localhost, port);
                 isConnected = true;
                 SetConnectionStatus(true);
                 Log($"Connected to port {port}");
@@ -243,10 +235,9 @@ namespace DSX.V4.GUI
 
         private void SliderRGB_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ValR.Text = ((int)SliderR.Value).ToString();
-            ValG.Text = ((int)SliderG.Value).ToString();
-            ValB.Text = ((int)SliderB.Value).ToString();
-
+            if (ValR != null) ValR.Text = ((int)SliderR.Value).ToString();
+            if (ValG != null) ValG.Text = ((int)SliderG.Value).ToString();
+            if (ValB != null) ValB.Text = ((int)SliderB.Value).ToString();
             if (ColorPreview != null)
             {
                 ColorPreview.Fill = new SolidColorBrush(Color.FromRgb(
@@ -277,26 +268,26 @@ namespace DSX.V4.GUI
             Log($"RGB set to ({(int)SliderR.Value}, {(int)SliderG.Value}, {(int)SliderB.Value})");
         }
 
-        private TriggerMode GetTriggerMode(ComboBox combo)
+        private Shared.TriggerMode GetTriggerMode(ComboBox combo)
         {
             return combo.SelectedIndex switch
             {
-                0 => TriggerMode.Normal,
-                1 => TriggerMode.VerySoft,
-                2 => TriggerMode.Soft,
-                3 => TriggerMode.Hard,
-                4 => TriggerMode.VeryHard,
-                5 => TriggerMode.Hardest,
-                6 => TriggerMode.Rigid,
-                7 => TriggerMode.Bow,
-                8 => TriggerMode.Galloping,
-                9 => TriggerMode.SemiAutomaticGun,
-                10 => TriggerMode.AutomaticGun,
-                11 => TriggerMode.Machine,
-                12 => TriggerMode.Resistance,
-                13 => TriggerMode.VibrateTrigger,
-                14 => TriggerMode.VibratePulse,
-                _ => TriggerMode.Normal,
+                0 => Shared.TriggerMode.Normal,
+                1 => Shared.TriggerMode.VerySoft,
+                2 => Shared.TriggerMode.Soft,
+                3 => Shared.TriggerMode.Hard,
+                4 => Shared.TriggerMode.VeryHard,
+                5 => Shared.TriggerMode.Hardest,
+                6 => Shared.TriggerMode.Rigid,
+                7 => Shared.TriggerMode.Bow,
+                8 => Shared.TriggerMode.Galloping,
+                9 => Shared.TriggerMode.SemiAutomaticGun,
+                10 => Shared.TriggerMode.AutomaticGun,
+                11 => Shared.TriggerMode.Machine,
+                12 => Shared.TriggerMode.Resistance,
+                13 => Shared.TriggerMode.VibrateTrigger,
+                14 => Shared.TriggerMode.VIBRATE_TRIGGER_10Hz,
+                _ => Shared.TriggerMode.Normal,
             };
         }
 
@@ -306,7 +297,7 @@ namespace DSX.V4.GUI
             int idx = currentDevice?.Index ?? 0;
             var mode = GetTriggerMode(ComboLeftTrigger);
             var packet = CreatePacket();
-            AddInstruction(packet, InstructionType.TriggerUpdate, new object[] { idx, Trigger.Left, mode });
+            AddInstruction(packet, InstructionType.TriggerUpdate, new object[] { idx, DSXTrigger.Left, mode });
             SendPacket(packet);
             var response = ReceiveResponse();
             UpdateDeviceInfo(response);
@@ -319,7 +310,7 @@ namespace DSX.V4.GUI
             int idx = currentDevice?.Index ?? 0;
             var mode = GetTriggerMode(ComboRightTrigger);
             var packet = CreatePacket();
-            AddInstruction(packet, InstructionType.TriggerUpdate, new object[] { idx, Trigger.Right, mode });
+            AddInstruction(packet, InstructionType.TriggerUpdate, new object[] { idx, DSXTrigger.Right, mode });
             SendPacket(packet);
             var response = ReceiveResponse();
             UpdateDeviceInfo(response);
@@ -358,9 +349,9 @@ namespace DSX.V4.GUI
             int idx = currentDevice?.Index ?? 0;
             var packet = CreatePacket();
             AddInstruction(packet, InstructionType.TriggerThreshold, new object[]
-                { idx, Trigger.Left, (int)SliderLeftThreshold.Value });
+                { idx, DSXTrigger.Left, (int)SliderLeftThreshold.Value });
             AddInstruction(packet, InstructionType.TriggerThreshold, new object[]
-                { idx, Trigger.Right, (int)SliderRightThreshold.Value });
+                { idx, DSXTrigger.Right, (int)SliderRightThreshold.Value });
             SendPacket(packet);
             var response = ReceiveResponse();
             UpdateDeviceInfo(response);
