@@ -259,7 +259,9 @@
                             <TextBlock x:Name="ValRightThreshold" Text="0" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
-                    <Button Content="Apply Thresholds" Style="{StaticResource DarkButton}" Click="BtnApplyThreshold_Click" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                    <StackPanel>
+                        <Button Content="Apply Thresholds" Style="{StaticResource DarkButton}" Click="BtnApplyThreshold_Click" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                    </StackPanel>
                 </Border>
 
                 <!-- Reset -->
