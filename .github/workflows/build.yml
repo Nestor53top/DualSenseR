@@ -102,6 +102,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Restore
-        run: dotnet restore "V4/GUI/GUI.csproj"
+        run: dotnet restore "V4/DSX_V4_GUI.sln"
       - name: Build
-        run: dotnet build "V4/GUI/GUI.csproj" --configuration Release --no-restore
+        run: dotnet build "V4/DSX_V4_GUI.sln" --configuration Release --no-restore
