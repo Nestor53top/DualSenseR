@@ -318,18 +318,18 @@ namespace DSX.V5
                 ColorPreview.Fill = new SolidColorBrush(Color.FromRgb((byte)SliderR.Value, (byte)SliderG.Value, (byte)SliderB.Value));
         }
 
-        private Shared.TriggerMode GetMode(ComboBox c)
+        private TriggerMode GetMode(ComboBox c)
         {
             return c.SelectedIndex switch
             {
-                0 => Shared.TriggerMode.Normal, 1 => Shared.TriggerMode.VerySoft,
-                2 => Shared.TriggerMode.Soft, 3 => Shared.TriggerMode.Hard,
-                4 => Shared.TriggerMode.VeryHard, 5 => Shared.TriggerMode.Hardest,
-                6 => Shared.TriggerMode.Rigid, 7 => Shared.TriggerMode.Bow,
-                8 => Shared.TriggerMode.Galloping, 9 => Shared.TriggerMode.SemiAutomaticGun,
-                10 => Shared.TriggerMode.AutomaticGun, 11 => Shared.TriggerMode.Machine,
-                12 => Shared.TriggerMode.Resistance, 13 => Shared.TriggerMode.VibrateTrigger,
-                _ => Shared.TriggerMode.Normal,
+                0 => TriggerMode.Normal, 1 => TriggerMode.VerySoft,
+                2 => TriggerMode.Soft, 3 => TriggerMode.Hard,
+                4 => TriggerMode.VeryHard, 5 => TriggerMode.Hardest,
+                6 => TriggerMode.Rigid, 7 => TriggerMode.Bow,
+                8 => TriggerMode.Galloping, 9 => TriggerMode.SemiAutomaticGun,
+                10 => TriggerMode.AutomaticGun, 11 => TriggerMode.Machine,
+                12 => TriggerMode.Resistance, 13 => TriggerMode.VibrateTrigger,
+                _ => TriggerMode.Normal,
             };
         }
 
