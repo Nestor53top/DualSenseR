@@ -21,6 +21,11 @@ jobs:
         run: nuget restore "ModSystem/DSX_ModSystem_Example.sln"
       - name: Build ModSystem
         run: msbuild "ModSystem/DSX_ModSystem_Example.sln" /p:Configuration=Release /p:Platform="Any CPU"
+      - name: Upload ModSystem artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ModSystem-v3.1
+          path: ModSystem/bin/Release/
 
   build-udp-v2:
     name: Build UDP Example v2.0
@@ -35,6 +40,11 @@ jobs:
         run: nuget restore "UDP Example (C#) for v2.0/DSX_UDP_Example/DSX_UDP_Example.sln"
       - name: Build UDP Example v2.0
         run: msbuild "UDP Example (C#) for v2.0/DSX_UDP_Example/DSX_UDP_Example.sln" /p:Configuration=Release /p:Platform="Any CPU"
+      - name: Upload UDP v2.0 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UDP-Example-v2.0
+          path: "UDP Example (C#) for v2.0/DSX_UDP_Example/bin/Release/"
 
   build-udp-example:
     name: Build UDP Example (Client/Server/Shared)
@@ -49,6 +59,11 @@ jobs:
         run: dotnet restore "UDPExample/UDPExample.sln"
       - name: Build
         run: dotnet build "UDPExample/UDPExample.sln" --configuration Release --no-restore
+      - name: Upload UDP Example artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UDP-Example-v3
+          path: UDPExample/*/bin/Release/
 
   build-hidhide-api:
     name: Build Nefarius.Drivers.HidHide
@@ -63,6 +78,11 @@ jobs:
         run: dotnet restore "Nefarius.Drivers.HidHide/Nefarius.Drivers.HidHide.sln"
       - name: Build
         run: dotnet build "Nefarius.Drivers.HidHide/Nefarius.Drivers.HidHide.sln" --configuration Release --no-restore
+      - name: Upload HidHide API artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nefarius-Drivers-HidHide
+          path: Nefarius.Drivers.HidHide/*/bin/Release/
 
   build-autobt:
     name: Build AutoBT
@@ -77,6 +97,11 @@ jobs:
         run: nuget restore "AutoBT/Source/AutoBT.sln"
       - name: Build AutoBT
         run: msbuild "AutoBT/Source/AutoBT.sln" /p:Configuration=Release /p:Platform="Any CPU"
+      - name: Upload AutoBT artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoBT
+          path: AutoBT/Source/bin/Release/
 
   build-v4:
     name: Build DSX V4 (Unified)
@@ -91,6 +116,13 @@ jobs:
         run: dotnet restore "V4/DSX_V4.sln"
       - name: Build
         run: dotnet build "V4/DSX_V4.sln" --configuration Release --no-restore
+      - name: Upload V4 Client/Server artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DSX-V4-Client-Server
+          path: |
+            V4/Client/bin/Release/
+            V4/Server/bin/Release/
 
   build-v4-gui:
     name: Build DSX V4 GUI
@@ -105,3 +137,8 @@ jobs:
         run: dotnet restore "V4/DSX_V4_GUI.sln"
       - name: Build
         run: dotnet build "V4/DSX_V4_GUI.sln" --configuration Release --no-restore
+      - name: Upload V4 GUI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DSX-V4-GUI
+          path: V4/GUI/bin/Release/
