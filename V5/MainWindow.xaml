@@ -1,0 +1,306 @@
+<Window x:Class="DSX.V5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DualSenseX V5 — All-in-One" Height="750" Width="540"
+        Background="#1a1a2e" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="Btn" TargetType="Button">
+            <Setter Property="Background" Value="#16213e"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#0f3460"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Acc" TargetType="Button" BasedOn="{StaticResource Btn}">
+            <Setter Property="Background" Value="#e94560"/>
+            <Setter Property="BorderBrush" Value="#e94560"/>
+        </Style>
+        <Style x:Key="Green" TargetType="Button" BasedOn="{StaticResource Btn}">
+            <Setter Property="Background" Value="#4caf50"/>
+            <Setter Property="BorderBrush" Value="#4caf50"/>
+        </Style>
+        <Style x:Key="Red" TargetType="Button" BasedOn="{StaticResource Btn}">
+            <Setter Property="Background" Value="#c62828"/>
+            <Setter Property="BorderBrush" Value="#c62828"/>
+        </Style>
+        <Style x:Key="Lbl" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#e94560"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,10,0,4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#16213e" CornerRadius="8" Padding="14,10" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="DualSenseX V5" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock x:Name="StatusText" Text="Ready" Foreground="#aaa" FontSize="11"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse x:Name="Dot" Width="8" Height="8" Fill="#555" Margin="0,0,5,0"/>
+                    <TextBlock x:Name="DotLabel" Text="Idle" Foreground="#aaa" FontSize="11" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Mode Tabs -->
+        <Border Grid.Row="1" Background="#16213e" CornerRadius="8" Padding="10,8" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="MODE" Style="{StaticResource Lbl}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BtnServerMode" Grid.Column="0" Content="Server" Style="{StaticResource Acc}" Click="BtnServerMode_Click"/>
+                        <Button x:Name="BtnClientMode" Grid.Column="1" Content="Client" Style="{StaticResource Btn}" Click="BtnClientMode_Click"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="SERVER PORT" Style="{StaticResource Lbl}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtPort" Grid.Column="0" Text="6969" Background="#0f3460" Foreground="White"
+                                 BorderThickness="1" BorderBrush="#1a3a6e" Padding="6,4" FontSize="12" VerticalAlignment="Center"/>
+                        <Button x:Name="BtnStartServer" Grid.Column="1" Content="Start" Style="{StaticResource Green}" Click="BtnStartServer_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- Connection Status -->
+                <TextBlock Text="STATUS" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="Server" Foreground="#aaa" FontSize="10"/>
+                                    <TextBlock x:Name="ServerStatus" Text="Stopped" Foreground="#666" FontSize="11" FontWeight="SemiBold"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="Client" Foreground="#aaa" FontSize="10"/>
+                                    <TextBlock x:Name="ClientStatus" Text="Disconnected" Foreground="#666" FontSize="11" FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Connect to DSX -->
+                <TextBlock Text="CONNECT TO DSX" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="DSX UDP Port" Foreground="#aaa" FontSize="12" VerticalAlignment="Center"/>
+                        <Button x:Name="BtnConnectDSX" Grid.Column="1" Content="Connect" Style="{StaticResource Green}" Click="BtnConnectDSX_Click"/>
+                        <Button x:Name="BtnRefresh" Grid.Column="2" Content="Refresh" Style="{StaticResource Btn}" Click="BtnRefresh_Click" IsEnabled="False"/>
+                    </Grid>
+                </Border>
+
+                <!-- Device Info -->
+                <TextBlock Text="DEVICE INFO" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid x:Name="DeviceInfoPanel">
+                        <TextBlock Text="No controller" Foreground="#555" FontSize="11" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Battery -->
+                <TextBlock Text="BATTERY" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar x:Name="BatteryBar" Grid.Column="0" Height="18" Minimum="0" Maximum="100"
+                                     Background="#333" Foreground="#4caf50" BorderThickness="0" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="BatteryText" Grid.Column="1" Text="--%" Foreground="#4caf50" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- RGB -->
+                <TextBlock Text="RGB COLOR" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <StackPanel>
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="R:" Foreground="#aaa" FontSize="11" VerticalAlignment="Center"/>
+                            <Slider x:Name="SliderR" Grid.Column="1" Minimum="0" Maximum="255" Value="255" ValueChanged="SliderRGB_Changed"/>
+                            <TextBlock x:Name="ValR" Grid.Column="2" Text="255" Foreground="#aaa" FontSize="11" VerticalAlignment="Center" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="G:" Foreground="#aaa" FontSize="11" VerticalAlignment="Center"/>
+                            <Slider x:Name="SliderG" Grid.Column="1" Minimum="0" Maximum="255" Value="0" ValueChanged="SliderRGB_Changed"/>
+                            <TextBlock x:Name="ValG" Grid.Column="2" Text="0" Foreground="#aaa" FontSize="11" VerticalAlignment="Center" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="24"/><ColumnDefinition Width="*"/><ColumnDefinition Width="28"/></Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="B:" Foreground="#aaa" FontSize="11" VerticalAlignment="Center"/>
+                            <Slider x:Name="SliderB" Grid.Column="1" Minimum="0" Maximum="255" Value="0" ValueChanged="SliderRGB_Changed"/>
+                            <TextBlock x:Name="ValB" Grid.Column="2" Text="0" Foreground="#aaa" FontSize="11" VerticalAlignment="Center" TextAlignment="Right"/>
+                        </Grid>
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <Rectangle x:Name="ColorPreview" Grid.Column="0" Height="26" Fill="#ff0000" RadiusX="5" RadiusY="5" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <Button Grid.Column="1" Content="Apply" Style="{StaticResource Acc}" Click="BtnApplyRGB_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Triggers -->
+                <TextBlock Text="ADAPTIVE TRIGGERS" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                            <TextBlock Text="Left" Foreground="#aaa" FontSize="11" Margin="0,0,0,3"/>
+                            <ComboBox x:Name="ComboL" Background="#0f3460" Foreground="White" SelectedIndex="0" FontSize="11">
+                                <ComboBoxItem Content="Normal"/><ComboBoxItem Content="VerySoft"/><ComboBoxItem Content="Soft"/>
+                                <ComboBoxItem Content="Hard"/><ComboBoxItem Content="VeryHard"/><ComboBoxItem Content="Hardest"/>
+                                <ComboBoxItem Content="Rigid"/><ComboBoxItem Content="Bow"/><ComboBoxItem Content="Galloping"/>
+                                <ComboBoxItem Content="SemiAutoGun"/><ComboBoxItem Content="AutoGun"/><ComboBoxItem Content="Machine"/>
+                                <ComboBoxItem Content="Resistance"/><ComboBoxItem Content="Vibrate"/>
+                            </ComboBox>
+                            <Button Content="Set Left" Style="{StaticResource Btn}" Click="BtnSetL_Click"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                            <TextBlock Text="Right" Foreground="#aaa" FontSize="11" Margin="0,0,0,3"/>
+                            <ComboBox x:Name="ComboR" Background="#0f3460" Foreground="White" SelectedIndex="0" FontSize="11">
+                                <ComboBoxItem Content="Normal"/><ComboBoxItem Content="VerySoft"/><ComboBoxItem Content="Soft"/>
+                                <ComboBoxItem Content="Hard"/><ComboBoxItem Content="VeryHard"/><ComboBoxItem Content="Hardest"/>
+                                <ComboBoxItem Content="Rigid"/><ComboBoxItem Content="Bow"/><ComboBoxItem Content="Galloping"/>
+                                <ComboBoxItem Content="SemiAutoGun"/><ComboBoxItem Content="AutoGun"/><ComboBoxItem Content="Machine"/>
+                                <ComboBoxItem Content="Resistance"/><ComboBoxItem Content="Vibrate"/>
+                            </ComboBox>
+                            <Button Content="Set Right" Style="{StaticResource Btn}" Click="BtnSetR_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- LEDs -->
+                <TextBlock Text="LED CONTROL" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                            <TextBlock Text="Player LED" Foreground="#aaa" FontSize="11" Margin="0,0,0,3"/>
+                            <ComboBox x:Name="ComboPlayer" Background="#0f3460" Foreground="White" SelectedIndex="0" FontSize="11">
+                                <ComboBoxItem Content="1"/><ComboBoxItem Content="2"/><ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/><ComboBoxItem Content="5"/><ComboBoxItem Content="Off"/>
+                            </ComboBox>
+                            <Button Content="Set Player" Style="{StaticResource Btn}" Click="BtnSetPlayer_Click"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                            <TextBlock Text="Mic LED" Foreground="#aaa" FontSize="11" Margin="0,0,0,3"/>
+                            <ComboBox x:Name="ComboMic" Background="#0f3460" Foreground="White" SelectedIndex="0" FontSize="11">
+                                <ComboBoxItem Content="On"/><ComboBoxItem Content="Pulse"/><ComboBoxItem Content="Off"/>
+                            </ComboBox>
+                            <Button Content="Set Mic" Style="{StaticResource Btn}" Click="BtnSetMic_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Threshold -->
+                <TextBlock Text="TRIGGER THRESHOLD" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/><ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                                <TextBlock Text="Left" Foreground="#aaa" FontSize="11"/>
+                                <Slider x:Name="SliderTL" Minimum="0" Maximum="255" Value="0"/>
+                                <TextBlock x:Name="ValTL" Text="0" Foreground="#aaa" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                <TextBlock Text="Right" Foreground="#aaa" FontSize="11"/>
+                                <Slider x:Name="SliderTR" Minimum="0" Maximum="255" Value="0"/>
+                                <TextBlock x:Name="ValTR" Text="0" Foreground="#aaa" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <Button Content="Apply Thresholds" Style="{StaticResource Btn}" Click="BtnThreshold_Click" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Reset -->
+                <TextBlock Text="MISC" Style="{StaticResource Lbl}"/>
+                <Border Background="#16213e" CornerRadius="8" Padding="12,8" Margin="0,0,0,8">
+                    <Button Content="Reset to User Settings" Style="{StaticResource Acc}" Click="BtnReset_Click" HorizontalAlignment="Center"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Log -->
+        <Border Grid.Row="3" Background="#16213e" CornerRadius="8" Padding="10,8" MaxHeight="100" Margin="0,10,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="LOG" Style="{StaticResource Lbl}" Margin="0,0,0,3"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="LogText" Text="" Foreground="#888" FontSize="10" FontFamily="Consolas" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
